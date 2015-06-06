@@ -1,0 +1,32 @@
+version: 0.1
+log:
+    level: debug
+    formatter: text
+    fields:
+        service: registry
+        environment: development
+storage:
+    filesystem:
+        rootdirectory: /data/registry
+    cache:
+        layerinfo: inmemory
+    maintenance:
+        uploadpurging:
+            enabled: true
+            age: 168h
+            interval: 24h
+            dryrun: false
+http:
+    addr: :5000
+    secret: asecretforlocaldevelopment
+    debug:
+        addr: localhost:5001
+notifications:
+    endpoints:
+        - name: navigator
+          url: http://navigator/v1/registry/callback
+          # headers:
+          #    Authorization: [Bearer <an example token>]
+          timeout: 1s
+          threshold: 5
+          backoff: 2s
