@@ -24,7 +24,9 @@ http:
 notifications:
     endpoints:
         - name: navigator
-          url: http://navigator/v1/registry/callback
+          url: http://navigator/api/registry/notifications
+          headers:
+              Accept: application/vnd.cloudgear.v1
           # headers:
           #    Authorization: [Bearer <an example token>]
           timeout: 1s
