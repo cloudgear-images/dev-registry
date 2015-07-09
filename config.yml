@@ -16,15 +16,21 @@ storage:
             age: 168h
             interval: 24h
             dryrun: false
+auth:
+  token:
+    realm: http://localhost:3000/v2/token
+    service: cgr.li
+    issuer: navigator
+    rootcertbundle: /certs/server.crt
 http:
-    addr: :5000
-    secret: asecretforlocaldevelopment
+    addr: 0.0.0.0:5000
+    secret: cf90b4d75bed50f6c67d893e9a0e3b0862b386b3f5b4bd8b7e0411d71cbfd555b5da2ad249c656805b9b2518fdea7ff2e3800205a9b29f3b7d0076d4ab0da34d
     debug:
-        addr: localhost:5001
+        addr: 0.0.0.0:5001
 notifications:
     endpoints:
         - name: navigator
-          url: http://navigator/api/registry/notifications
+          url: http://navigator/v2/notifications
           headers:
               Accept: ["application/vnd.cloudgear.v1"]
           # headers:
