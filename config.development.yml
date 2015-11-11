@@ -7,23 +7,26 @@ log:
         environment: development
 storage:
     filesystem:
-        rootdirectory: /data/registry
+        rootdirectory: /var/lib/registry
+    delete:
+        enabled: true
     cache:
-        layerinfo: inmemory
+        blobdescriptor: inmemory
     maintenance:
         uploadpurging:
             enabled: true
-            age: 168h
-            interval: 24h
+            age: 72h        # 3 days
+            interval: 12h
             dryrun: false
 auth:
   token:
     realm: http://localhost:3000/v2/token
     service: cgr.li
     issuer: navigator
-    rootcertbundle: /certs/server.crt
+    rootcertbundle: /secrets/cloudgear-registry.pem
 http:
     addr: 0.0.0.0:5000
+    net: tcp
     secret: cf90b4d75bed50f6c67d893e9a0e3b0862b386b3f5b4bd8b7e0411d71cbfd555b5da2ad249c656805b9b2518fdea7ff2e3800205a9b29f3b7d0076d4ab0da34d
     debug:
         addr: 0.0.0.0:5001
@@ -33,8 +36,6 @@ notifications:
           url: http://navigator/v2/notifications
           headers:
               Accept: ["application/vnd.cloudgear.v1"]
-          # headers:
-          #    Authorization: [Bearer <an example token>]
           timeout: 1s
           threshold: 5
           backoff: 2s

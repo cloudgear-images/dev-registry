@@ -1,0 +1,42 @@
+version: 0.1
+log:
+    level: info
+    formatter: text
+    fields:
+        service: registry
+        environment: production
+storage:
+    filesystem:
+        rootdirectory: /var/lib/registry
+    delete:
+        enabled: true
+    cache:
+        blobdescriptor: inmemory
+    maintenance:
+        uploadpurging:
+            enabled: true
+            age: 72h        # 3 days
+            interval: 12h
+            dryrun: false
+auth:
+  token:
+    realm: https://app.cloudgear.net/v2/token
+    service: cgr.li
+    issuer: app.cloudgear.net
+    rootcertbundle: /secrets/cloudgear-registry.pem
+http:
+    addr: 0.0.0.0:5000
+    net: tcp
+    host: https://cgr.li
+    secret: 8b2236d29ceea0e50422d959665fbb1015ee61d66b976f924f2e072d1c9b2fa6ccc7a211c935f3aa6a2ae2ef7faa7c013730c520f52e0a7c210e1fb6a9d0b257
+    debug:
+        addr: 0.0.0.0:5001
+notifications:
+    endpoints:
+        - name: navigator
+          url: https://app.cloudgear.net/v2/notifications
+          headers:
+              Accept: ["application/vnd.cloudgear.v1"]
+          timeout: 1s
+          threshold: 5
+          backoff: 2s

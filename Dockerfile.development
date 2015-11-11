@@ -1,0 +1,6 @@
+FROM registry:2.2.0
+MAINTAINER Georg Kunz, CloudGear <contact@cloudgear.net>
+
+VOLUME /var/lib/registry
+COPY config.development.yml /etc/docker/registry/config.yml
+COPY server.crt /secrets/cloudgear-registry.pem
